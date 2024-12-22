@@ -1,0 +1,190 @@
+To use React Hooks to manage state and props in my dashboard component, especially when dealing with multiple project cards and 
+healthcare company report data.
+
+React Hooks are a great way to manage state and props in your dashboard component, especially when dealing with multiple project cards and healthcare company report data. Here's an example of how you can use React Hooks to manage state and props in your dashboard component:
+
+#Step 1: Import React Hooks
+
+Import the useState and useEffect hooks from the react library:
+
+import { useState, useEffect } from 'react';
+
+#Step 2: Define State Variables
+
+Define state variables to store the project cards and healthcare company report data:
+
+const [projectCards, setProjectCards] = useState([]);  
+const [healthcareCompanyReport, setHealthcareCompanyReport] = useState({});
+
+#Step 3: Fetch Data
+
+Use the useEffect hook to fetch the project cards and healthcare company report data from an API or a database:
+
+useEffect(() => {  
+  const fetchProjectCards = async () => {  
+   const response = await fetch('https://api.example.com/project-cards');  
+   const data = await response.json();  
+   setProjectCards(data);  
+  };  
+  
+  const fetchHealthcareCompanyReport = async () => {  
+   const response = await fetch('https://api.example.com/healthcare-company-report');  
+   const data = await response.json();  
+   setHealthcareCompanyReport(data);  
+  };  
+  
+  fetchProjectCards();  
+  fetchHealthcareCompanyReport();  
+}, []);
+
+Step 4: Render Project Cards
+
+Use the map function to render the project cards:
+
+return (  
+  <div>  
+   {projectCards.map((projectCard) => (  
+    <ProjectCard key={projectCard.id} projectCard={projectCard} />  
+   ))}  
+  </div>  
+);
+
+Step 5: Render Healthcare Company Report
+
+Render the healthcare company report data:
+
+return (  
+  <div>  
+   <h1>Healthcare Company Report</h1>  
+   <p>{healthcareCompanyReport.companyName}</p>  
+   <p>{healthcareCompanyReport.reportDate}</p>  
+   <table>  
+    <thead>  
+      <tr>  
+       <th>Patient Satisfaction</th>  
+       <th>Readmission Rate</th>  
+       <th>Revenue per Patient</th>  
+      </tr>  
+    </thead>  
+    <tbody>  
+      <tr>  
+       <td>{healthcareCompanyReport.patientSatisfaction}</td>  
+       <td>{healthcareCompanyReport.readmissionRate}</td>  
+       <td>{healthcareCompanyReport.revenuePerPatient}</td>  
+      </tr>  
+    </tbody>  
+   </table>  
+  </div>  
+);
+
+
+Step 6: Handle State Changes
+
+Use the useState hook to handle state changes when the user interacts with the project cards or healthcare company report:
+
+const handleProjectCardClick = (projectCard) => {  
+  // Update the state of the project card  
+  setProjectCards((prevProjectCards) => {  
+   return prevProjectCards.map((prevProjectCard) => {  
+    if (prevProjectCard.id === projectCard.id) {  
+      return { ...prevProjectCard, isSelected: true };  
+    }  
+    return prevProjectCard;  
+   });  
+  });  
+};  
+  
+const handleHealthcareCompanyReportChange = (healthcareCompanyReport) => {  
+  // Update the state of the healthcare company report  
+  setHealthcareCompanyReport((prevHealthcareCompanyReport) => {  
+   return { ...prevHealthcareCompanyReport, ...healthcareCompanyReport };  
+  });  
+};
+
+By using React Hooks, you can manage the state and props of your dashboard component in a more efficient and scalable way.
+
+Here is the complete code:
+
+import React, { useState, useEffect } from 'react';  
+  
+const Dashboard = () => {  
+  const [projectCards, setProjectCards] = useState([]);  
+  const [healthcareCompanyReport, setHealthcareCompanyReport] = useState({});  
+  
+  useEffect(() => {  
+   const fetchProjectCards = async () => {  
+    const response = await fetch('https://api.example.com/project-cards');  
+    const data = await response.json();  
+    setProjectCards(data);  
+   };  
+  
+   const fetchHealthcareCompanyReport = async () => {  
+    const response = await fetch('https://api.example.com/healthcare-company-report');  
+    const data = await response.json();  
+    setHealthcareCompanyReport(data);  
+   };  
+  
+   fetchProjectCards();  
+   fetchHealthcareCompanyReport();  
+  }, []);  
+  
+  const handleProjectCardClick = (projectCard) => {  
+   // Update the state of the project card  
+   setProjectCards((prevProjectCards) => {  
+    return prevProjectCards.map((prevProjectCard) => {  
+      if (prevProjectCard.id === projectCard.id) {  
+       return { ...prevProjectCard, isSelected: true };  
+      }  
+      return prevProjectCard;  
+    });  
+   });  
+  };  
+  
+  const handleHealthcareCompanyReportChange = (healthcareCompanyReport) => {  
+   // Update the state of the healthcare company report  
+   setHealthcareCompanyReport((prevHealthcareCompanyReport) => {  
+    return { ...prevHealthcareCompanyReport, ...healthcareCompanyReport };  
+   });  
+  };  
+  
+  return (  
+   <div>  
+    {projectCards.map((projectCard) => (  
+      <ProjectCard key={projectCard.id} projectCard={projectCard} onClick={handleProjectCardClick} />  
+    ))}  
+    <h1>Healthcare Company Report</h1>  
+    <p>{healthcareCompanyReport.companyName}</p>  
+    <p>{healthcareCompanyReport.reportDate}</p>  
+    <table>  
+      <thead>  
+       <tr>  
+        <th>Patient Satisfaction</th>  
+        <th>Readmission Rate</th>  
+        <th>Revenue per Patient</th>  
+       </tr>  
+      </thead>  
+      <tbody>  
+       <tr>  
+        <td>{healthcareCompanyReport.patientSatisfaction}</td>  
+        <td>{healthcareCompanyReport.readmissionRate}</td>  
+        <td>{healthcareCompanyReport.revenuePerPatient}</td>  
+       </tr>  
+      </tbody>  
+    </table>  
+   </div>  
+  );  
+};  
+  
+export default Dashboard;
+
+
+Note that this is just an example, you should adjust it to your needs and also you can use other hooks like useContext to manage 
+the state and props of your component.
+
+
+
+
+
+
+
+
